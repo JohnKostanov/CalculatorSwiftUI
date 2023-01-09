@@ -8,29 +8,24 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var result = "0"
+    
+    @State var calculator = CalculatorActions()
     
     var body: some View {
         VStack {
             HStack {
                 Spacer()
-                Text(result)
+                Text(calculator.data.resultString)
                     .font(.system(size: 50))
             }
             .padding()
             HStack {
-                ButtonView(label: "1") {
-                    result += $0
-                }
-                ButtonView(label: "2") {
-                    result += $0
-                }
-                ButtonView(label: "3") {
-                    result += $0
-                }
-                ButtonView(label: "+") {
-                    result += $0
-                }
+                ButtonView(label: .one, calculator: $calculator)
+                ButtonView(label: .two, calculator: $calculator)
+                ButtonView(label: .three, calculator: $calculator)
+                ButtonView(label: .addition,
+                           backgroundColor: Colors.orange,
+                           calculator: $calculator)
             }
             .padding()
         }

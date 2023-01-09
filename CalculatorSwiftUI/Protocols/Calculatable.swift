@@ -9,5 +9,5 @@ import Foundation
 
 protocol Calculatable {
     var resultString: String { get }
-    var button: ActionButton { get }
+    var setting: ActionButton { get }
 }

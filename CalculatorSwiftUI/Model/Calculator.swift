@@ -8,8 +8,8 @@
 import Foundation
 
 struct Calculator: Calculatable {
-    var resultString: String
-    var button: ActionButton
+    var resultString = "0"
+    var setting: ActionButton
 }
 
 
@@ -20,7 +20,6 @@ struct ActionButton {
     }
     
     var label: Labels
-    var action: (String) -> Void
 }
 
 

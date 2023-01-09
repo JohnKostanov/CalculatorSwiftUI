@@ -17,6 +17,7 @@
 		E1866AB529678A1B00683BFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1866AB429678A1B00683BFB /* ContentView.swift */; };
 		E1866AB729678A1D00683BFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1866AB629678A1D00683BFB /* Assets.xcassets */; };
 		E1866ABA29678A1D00683BFB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1866AB929678A1D00683BFB /* Preview Assets.xcassets */; };
+		E1EFA916296C2AE000C2717F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFA915296C2AE000C2717F /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		E1866AB429678A1B00683BFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E1866AB629678A1D00683BFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1866AB929678A1D00683BFB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E1EFA915296C2AE000C2717F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		E145E131296C2A5C00D01FB1 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E1EFA915296C2AE000C2717F /* Colors.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		E1866AA629678A1B00683BFB = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +82,7 @@
 		E1866AB129678A1B00683BFB /* CalculatorSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				E145E131296C2A5C00D01FB1 /* Setting */,
 				E145E128296B865800D01FB1 /* Protocols */,
 				E1866AC029678E3400683BFB /* App */,
 				E1866AC229678E6D00683BFB /* Model */,
@@ -196,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E145E12E296C17EB00D01FB1 /* CalculatableActions.swift in Sources */,
+				E1EFA916296C2AE000C2717F /* Colors.swift in Sources */,
 				E145E12A296B86AE00D01FB1 /* Calculatable.swift in Sources */,
 				E1866AB529678A1B00683BFB /* ContentView.swift in Sources */,
 				E145E127296B67D700D01FB1 /* MainView.swift in Sources */,

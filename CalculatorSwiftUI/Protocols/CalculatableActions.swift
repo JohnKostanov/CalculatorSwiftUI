@@ -10,5 +10,5 @@ import Foundation
 protocol CalculatableActions {
     var data: Calculator { get }
     
-    func calculateAction(button: ActionButton)
+    mutating func calculateAction(button: ActionButton.Labels)
 }
