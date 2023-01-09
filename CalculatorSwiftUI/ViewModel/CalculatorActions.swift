@@ -15,7 +15,7 @@ struct CalculatorActions: CalculatableActions {
         case .comma:
             break
         case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
-            data.resultString += button.rawValue
+            actionNumber(button)
         case .ac:
             break
         case .plusMinus:
@@ -33,5 +33,15 @@ struct CalculatorActions: CalculatableActions {
         case .equals:
             break
         }
+    }
+    
+    private mutating func actionNumber(_ number: ActionButton.Labels) {
+        guard data.resultString.count < 9 else { return }
+        if data.resultString.first == "0" {
+            data.resultString = number.rawValue
+        } else {
+            data.resultString += number.rawValue
+        }
+        
     }
 }
