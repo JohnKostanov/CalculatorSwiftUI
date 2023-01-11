@@ -20,6 +20,9 @@ struct ActionButton {
     }
     
     var label: Labels
+    var numberFirst: Int?
+    var numberSecond: Int?
+    var isActive = false
 }
 
 

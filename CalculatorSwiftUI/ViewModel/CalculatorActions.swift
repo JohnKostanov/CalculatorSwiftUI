@@ -29,7 +29,7 @@ struct CalculatorActions: CalculatableActions {
         case .subtraction:
             break
         case .addition:
-            break
+            actionAddition()
         case .equals:
             break
         }
@@ -37,11 +37,34 @@ struct CalculatorActions: CalculatableActions {
     
     private mutating func actionNumber(_ number: ActionButton.Labels) {
         guard data.resultString.count < 9 else { return }
+        
+        guard !data.setting.isActive else {
+            data.resultString = number.rawValue
+            data.setting.isActive = false
+            return
+        }
+        
         if data.resultString.first == "0" {
             data.resultString = number.rawValue
         } else {
             data.resultString += number.rawValue
         }
         
+    }
+    
+    private mutating func actionAddition() {
+        if !data.setting.isActive {
+            data.setting.isActive = true
+            if data.setting.numberFirst == nil {
+                data.setting.numberFirst = Int(data.resultString) ?? 0
+            } else if data.setting.numberSecond == nil {
+                data.setting.numberSecond = Int(data.resultString) ?? 0
+                data.resultString = "\(data.setting.numberFirst! + data.setting.numberSecond!)"
+                data.setting.numberSecond = Int(data.resultString)
+            } else {
+                data.resultString = "\(data.setting.numberSecond! + Int(data.resultString)!)"
+                data.setting.numberSecond = Int(data.resultString)
+            }
+        }
     }
 }
