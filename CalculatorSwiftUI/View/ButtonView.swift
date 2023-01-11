@@ -17,11 +17,12 @@ struct ButtonView: View {
             calculator.calculateAction(button: label)
         } label: {
             ZStack {
-                Circle().foregroundColor(backgroundColor)
+                Rectangle().foregroundColor(backgroundColor)
+                    .cornerRadius(calculator.getButtonWidth())
                 Text(label.rawValue)
                     .foregroundColor(.white)
-                    .font(Font.system(size: 50,
-                                      design: Font.Design.rounded))
+                    .font(.system(size: 40))
+
             }
         }
 

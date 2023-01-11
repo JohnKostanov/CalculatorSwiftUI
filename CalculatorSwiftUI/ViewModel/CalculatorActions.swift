@@ -67,4 +67,18 @@ struct CalculatorActions: CalculatableActions {
             }
         }
     }
+    
+    func getButtonWidth(_ type: ActionButton.Labels = .equals) -> CGFloat {
+        switch type {
+        case .zero:
+            return ((UIScreen.main.bounds.width - (4 * 12)) / 4) * 2
+        default:
+            return ((UIScreen.main.bounds.width - (5 * 12)) / 4)
+        }
+        
+    }
+    
+    func getButtonHight() -> CGFloat {
+        (UIScreen.main.bounds.width - (5 * 12)) / 4
+    }
 }
