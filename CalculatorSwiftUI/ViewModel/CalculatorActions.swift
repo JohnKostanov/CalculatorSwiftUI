@@ -55,15 +55,15 @@ struct CalculatorActions: CalculatableActions {
     private mutating func actionAddition() {
         if !data.setting.isActive {
             data.setting.isActive = true
-            if data.setting.numberFirst == nil {
-                data.setting.numberFirst = Int(data.resultString) ?? 0
-            } else if data.setting.numberSecond == nil {
-                data.setting.numberSecond = Int(data.resultString) ?? 0
-                data.resultString = "\(data.setting.numberFirst! + data.setting.numberSecond!)"
-                data.setting.numberSecond = Int(data.resultString)
+            if data.numberFirst == nil {
+                data.numberFirst = Int(data.resultString) ?? 0
+            } else if data.numberSecond == nil {
+                data.numberSecond = Int(data.resultString) ?? 0
+                data.resultString = "\(data.numberFirst! + data.numberSecond!)"
+                data.numberSecond = Int(data.resultString)
             } else {
-                data.resultString = "\(data.setting.numberSecond! + Int(data.resultString)!)"
-                data.setting.numberSecond = Int(data.resultString)
+                data.resultString = "\(data.numberSecond! + Int(data.resultString)!)"
+                data.numberSecond = Int(data.resultString)
             }
         }
     }
@@ -81,4 +81,6 @@ struct CalculatorActions: CalculatableActions {
     func getButtonHight() -> CGFloat {
         (UIScreen.main.bounds.width - (5 * 12)) / 4
     }
+    
+    
 }

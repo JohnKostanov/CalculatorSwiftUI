@@ -9,6 +9,8 @@ import Foundation
 
 struct Calculator: Calculatable {
     var resultString = "0"
+    var numberFirst: Int?
+    var numberSecond: Int?
     var setting: ActionButton
 }
 
@@ -20,9 +22,9 @@ struct ActionButton {
     }
     
     var label: Labels
-    var numberFirst: Int?
-    var numberSecond: Int?
     var isActive = false
 }
+
+
 
 
