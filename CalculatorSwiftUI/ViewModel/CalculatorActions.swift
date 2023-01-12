@@ -23,7 +23,7 @@ struct CalculatorActions: CalculatableActions {
         case .percent:
             break
         case .division:
-            break
+            actionDivision()
         case .multiplication:
             actionMultiplication()
         case .subtraction:
@@ -79,6 +79,22 @@ struct CalculatorActions: CalculatableActions {
                 data.numberSecond = Int(data.resultString)
             } else {
                 data.resultString = "\(data.numberSecond! - Int(data.resultString)!)"
+                data.numberSecond = Int(data.resultString)
+            }
+        }
+    }
+    
+    private mutating func actionDivision() {
+        if !data.setting.isActive {
+            data.setting.isActive = true
+            if data.numberFirst == nil {
+                data.numberFirst = Int(data.resultString) ?? 0
+            } else if data.numberSecond == nil {
+                data.numberSecond = Int(data.resultString) ?? 0
+                data.resultString = "\(Double(data.numberFirst!) / Double(data.numberSecond!))"
+                data.numberSecond = Int(data.resultString)
+            } else {
+                data.resultString = "\(Double(data.numberSecond!) / Double(data.resultString)!)"
                 data.numberSecond = Int(data.resultString)
             }
         }
