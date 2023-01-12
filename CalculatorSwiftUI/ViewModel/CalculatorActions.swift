@@ -36,13 +36,13 @@ struct CalculatorActions: CalculatableActions {
     }
     
     private mutating func actionNumber(_ number: ActionButton.Labels) {
-        guard data.resultString.count <= 9 else { return }
-        
         guard !data.setting.isActive else {
             data.resultString = number.rawValue
             data.setting.isActive = false
             return
         }
+        guard data.resultString.count <= 9 else { return }
+        
         
         if data.resultString.first == "0" {
             data.resultString = number.rawValue
@@ -114,6 +114,10 @@ struct CalculatorActions: CalculatableActions {
                 data.numberSecond = Int(data.resultString)
             }
         }
+    }
+    
+    private mutating func actionEquals() {
+        
     }
     
     func getButtonWidth(_ type: ActionButton.Labels = .equals) -> CGFloat {
