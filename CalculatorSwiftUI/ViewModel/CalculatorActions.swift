@@ -36,7 +36,7 @@ struct CalculatorActions: CalculatableActions {
     }
     
     private mutating func actionNumber(_ number: ActionButton.Labels) {
-        guard data.resultString.count < 9 else { return }
+        guard data.resultString.count <= 9 else { return }
         
         guard !data.setting.isActive else {
             data.resultString = number.rawValue

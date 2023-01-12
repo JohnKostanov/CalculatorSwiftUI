@@ -19,6 +19,7 @@ struct MainView: View {
                     Spacer()
                     Text(calculator.data.resultString)
                         .font(.system(size: 100))
+                        .minimumScaleFactor(0.5)
                 }
                 .padding()
             }
