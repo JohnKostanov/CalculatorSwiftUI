@@ -82,5 +82,16 @@ struct CalculatorActions: CalculatableActions {
         (UIScreen.main.bounds.width - (5 * 12)) / 4
     }
     
+    func getButtonColor(_ type: ActionButton.Labels) -> Color {
+        switch type {
+        case .comma, .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
+            return Colors.darkGray
+        case .ac, .plusMinus, .percent:
+            return Colors.lightGray
+        case .division, .multiplication, .subtraction, .addition, .equals:
+            return Colors.orange
+        }
+    }
+    
     
 }

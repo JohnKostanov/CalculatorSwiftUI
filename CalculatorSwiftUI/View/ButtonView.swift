@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ButtonView: View {
     var label: ActionButton.Labels
-    var backgroundColor = Colors.darkGray
     @Binding var calculator: CalculatorActions
     
     var body: some View {
@@ -17,12 +16,12 @@ struct ButtonView: View {
             calculator.calculateAction(button: label)
         } label: {
             ZStack {
-                Rectangle().foregroundColor(backgroundColor)
+                Rectangle()
+                    .foregroundColor(calculator.getButtonColor(label))
                     .cornerRadius(calculator.getButtonWidth())
                 Text(label.rawValue)
                     .foregroundColor(.white)
                     .font(.system(size: 40))
-
             }
         }
 

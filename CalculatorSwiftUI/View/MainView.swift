@@ -24,7 +24,6 @@ struct MainView: View {
                 ButtonView(label: .two, calculator: $calculator)
                 ButtonView(label: .three, calculator: $calculator)
                 ButtonView(label: .addition,
-                           backgroundColor: Colors.orange,
                            calculator: $calculator)
             }
             .padding(.horizontal)
@@ -36,7 +35,6 @@ struct MainView: View {
                     .frame(width: calculator.getButtonWidth(.equals)
                            , height: calculator.getButtonHight())
                 ButtonView(label: .equals,
-                           backgroundColor: Colors.orange,
                            calculator: $calculator)
                 .frame(width: calculator.getButtonWidth(.equals)
                        , height: calculator.getButtonHight())
