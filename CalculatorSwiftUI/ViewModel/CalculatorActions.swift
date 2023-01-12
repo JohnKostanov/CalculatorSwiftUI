@@ -27,7 +27,7 @@ struct CalculatorActions: CalculatableActions {
         case .multiplication:
             break
         case .subtraction:
-            break
+            actionSubtraction()
         case .addition:
             actionAddition()
         case .equals:
@@ -63,6 +63,22 @@ struct CalculatorActions: CalculatableActions {
                 data.numberSecond = Int(data.resultString)
             } else {
                 data.resultString = "\(data.numberSecond! + Int(data.resultString)!)"
+                data.numberSecond = Int(data.resultString)
+            }
+        }
+    }
+    
+    private mutating func actionSubtraction() {
+        if !data.setting.isActive {
+            data.setting.isActive = true
+            if data.numberFirst == nil {
+                data.numberFirst = Int(data.resultString) ?? 0
+            } else if data.numberSecond == nil {
+                data.numberSecond = Int(data.resultString) ?? 0
+                data.resultString = "\(data.numberFirst! - data.numberSecond!)"
+                data.numberSecond = Int(data.resultString)
+            } else {
+                data.resultString = "\(data.numberSecond! - Int(data.resultString)!)"
                 data.numberSecond = Int(data.resultString)
             }
         }
