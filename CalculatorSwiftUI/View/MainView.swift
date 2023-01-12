@@ -13,33 +13,26 @@ struct MainView: View {
     
     var body: some View {
         VStack {
-            HStack {
+            VStack {
                 Spacer()
-                Text(calculator.data.resultString)
-                    .font(.system(size: 50))
+                HStack {
+                    Spacer()
+                    Text(calculator.data.resultString)
+                        .font(.system(size: 100))
+                }
+                .padding()
             }
-            .padding(.horizontal)
-            HStack {
-                ButtonView(label: .one, calculator: $calculator)
-                ButtonView(label: .two, calculator: $calculator)
-                ButtonView(label: .three, calculator: $calculator)
-                ButtonView(label: .addition,
-                           calculator: $calculator)
+            
+            ForEach(calculator.data.allButtons, id: \.self) { row in
+                HStack(spacing: 12) {
+                    ForEach(row, id: \.self) { button in
+                        ButtonView(label: button, calculator: $calculator)
+                            .frame(width: calculator.getButtonWidth(button),
+                                   height: calculator.getButtonHight())
+                    }
+                }
+                .padding(.bottom, 3)
             }
-            .padding(.horizontal)
-            HStack {
-                ButtonView(label: .zero, calculator: $calculator)
-                    .frame(width: calculator.getButtonWidth(.zero)
-                           , height: calculator.getButtonHight())
-                ButtonView(label: .comma, calculator: $calculator)
-                    .frame(width: calculator.getButtonWidth(.equals)
-                           , height: calculator.getButtonHight())
-                ButtonView(label: .equals,
-                           calculator: $calculator)
-                .frame(width: calculator.getButtonWidth(.equals)
-                       , height: calculator.getButtonHight())
-            }
-            .padding(.horizontal)
         }
         
     }

@@ -25,6 +25,18 @@ struct ActionButton {
     var isActive = false
 }
 
+extension Calculator {
+    var allButtons: [[ActionButton.Labels]] {
+        return [
+            [.ac, .plusMinus, .percent, .division],
+            [.seven, .eight, .nine, .multiplication],
+            [.four, .five, .six, .subtraction],
+            [.one, .two, .six, .addition],
+            [.zero, .comma, .equals]
+        ]
+    }
+}
+
 
 
 
