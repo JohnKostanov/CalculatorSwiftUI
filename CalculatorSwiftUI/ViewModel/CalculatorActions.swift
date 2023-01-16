@@ -31,7 +31,7 @@ struct CalculatorActions: CalculatableActions {
         case .addition:
             actionAddition()
         case .equals:
-            break
+            actionEquals()
         }
     }
     
@@ -53,6 +53,7 @@ struct CalculatorActions: CalculatableActions {
     }
     
     private mutating func actionAddition() {
+        data.setting.currentOperation = .addition
         if !data.setting.isActive {
             data.setting.isActive = true
             if data.numberFirst == nil {
@@ -69,6 +70,7 @@ struct CalculatorActions: CalculatableActions {
     }
     
     private mutating func actionSubtraction() {
+        data.setting.currentOperation = .subtraction
         if !data.setting.isActive {
             data.setting.isActive = true
             if data.numberFirst == nil {
@@ -85,6 +87,7 @@ struct CalculatorActions: CalculatableActions {
     }
     
     private mutating func actionDivision() {
+        data.setting.currentOperation = .division
         if !data.setting.isActive {
             data.setting.isActive = true
             if data.numberFirst == nil {
@@ -101,6 +104,7 @@ struct CalculatorActions: CalculatableActions {
     }
     
     private mutating func actionMultiplication() {
+        data.setting.currentOperation = .multiplication
         if !data.setting.isActive {
             data.setting.isActive = true
             if data.numberFirst == nil {
@@ -117,7 +121,30 @@ struct CalculatorActions: CalculatableActions {
     }
     
     private mutating func actionEquals() {
-        
+        func getResults(by action: (Double, Double) -> String) {
+            if data.numberFirst == nil {
+                data.numberFirst = Int(data.resultString) ?? 0
+            } else if data.numberSecond == nil {
+                data.numberSecond = Int(data.resultString) ?? 0
+                data.resultString = action(Double(data.numberFirst!), Double(data.numberSecond!))
+            } else {
+                data.resultString =  action(Double(data.resultString)!, Double(data.numberSecond!))
+                
+            }
+        }
+        switch data.setting.currentOperation {
+        case .division:
+            getResults { "\($0 / $1)" }
+        case .multiplication:
+            getResults { "\($0 * $1)" }
+        case .subtraction:
+            getResults { "\($0 - $1)" }
+        case .addition:
+            getResults { "\($0 + $1)" }
+        default:
+            break
+        }
+        data.setting.isActive = true
     }
     
     func getButtonWidth(_ type: ActionButton.Labels = .equals) -> CGFloat {
