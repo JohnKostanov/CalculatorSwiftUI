@@ -21,7 +21,7 @@ struct CalculatorActions: CalculatableActions {
         case .plusMinus:
             actionPlusMinus()
         case .percent:
-            break
+            actionPercent()
         case .division:
             action(with: button) { "\($0 / $1)" }
         case .multiplication:
@@ -43,6 +43,24 @@ struct CalculatorActions: CalculatableActions {
         }
         data.resultString = "0"
         data.setting.statusAC = true
+    }
+    
+    private mutating func actionPercent() {
+        if data.numberFirst == nil {
+            let resultString = Double(data.resultString) ?? 0.0
+            let percent = (resultString / 100)
+            data.numberFirst = percent
+            data.resultString = "\(percent)"
+        } else if data.numberSecond == nil {
+            let resultString = Double(data.resultString) ?? 0.0
+            let percent = (resultString / 100)
+            data.resultString = "\(data.numberFirst! * percent)"
+            data.numberSecond = Double(data.resultString)
+        } else {
+            let resultString = Double(data.resultString) ?? 0.0
+            let percent = (resultString / 100)
+            data.resultString = "\(percent)"
+        }
     }
     
     private mutating func actionPlusMinus() {
@@ -94,7 +112,6 @@ struct CalculatorActions: CalculatableActions {
                 data.resultString = action(Double(data.numberFirst!), Double(data.numberSecond!))
             } else {
                 data.resultString =  action(Double(data.resultString)!, Double(data.numberSecond!))
-                
             }
         }
         switch data.setting.currentOperation {
