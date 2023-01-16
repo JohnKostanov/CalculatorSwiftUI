@@ -9,8 +9,8 @@ import Foundation
 
 struct Calculator: Calculatable {
     var resultString = "0"
-    var numberFirst: Int?
-    var numberSecond: Int?
+    var numberFirst: Double?
+    var numberSecond: Double?
     var setting: ActionButton
 }
 

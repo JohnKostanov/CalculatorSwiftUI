@@ -19,22 +19,23 @@ struct CalculatorActions: CalculatableActions {
         case .ac:
             actionAC()
         case .plusMinus:
-            break
+            actionPlusMinus()
         case .percent:
             break
         case .division:
-            actionDivision()
+            action(with: button) { "\($0 / $1)" }
         case .multiplication:
-            actionMultiplication()
+            action(with: button) { "\($0 * $1)" }
         case .subtraction:
-            actionSubtraction()
+            action(with: button) { "\($0 - $1)" }
         case .addition:
-            actionAddition()
+            action(with: button) { "\($0 + $1)" }
         case .equals:
             actionEquals()
         }
     }
     
+    // MARK: - Actions methods
     private mutating func actionAC() {
         if data.setting.statusAC {
             data.numberFirst = nil
@@ -42,6 +43,10 @@ struct CalculatorActions: CalculatableActions {
         }
         data.resultString = "0"
         data.setting.statusAC = true
+    }
+    
+    private mutating func actionPlusMinus() {
+        data.resultString = "\(Double(data.resultString)! * -1)"
     }
     
     private mutating func actionNumber(_ number: ActionButton.Labels) {
@@ -63,70 +68,19 @@ struct CalculatorActions: CalculatableActions {
         
     }
     
-    private mutating func actionAddition() {
-        data.setting.currentOperation = .addition
+    private mutating func action(with operation: ActionButton.Labels, by action: (Double, Double) -> String) {
+        data.setting.currentOperation = operation
         if !data.setting.isActive {
             data.setting.isActive = true
             if data.numberFirst == nil {
-                data.numberFirst = Int(data.resultString) ?? 0
+                data.numberFirst = Double(data.resultString) ?? 0.0
             } else if data.numberSecond == nil {
-                data.numberSecond = Int(data.resultString) ?? 0
-                data.resultString = "\(data.numberFirst! + data.numberSecond!)"
-                data.numberSecond = Int(data.resultString)
+                data.numberSecond = Double(data.resultString) ?? 0.0
+                data.resultString =  action(Double(data.numberFirst!), Double(data.numberSecond!))
+                data.numberSecond = Double(data.resultString)
             } else {
-                data.resultString = "\(data.numberSecond! + Int(data.resultString)!)"
-                data.numberSecond = Int(data.resultString)
-            }
-        }
-    }
-    
-    private mutating func actionSubtraction() {
-        data.setting.currentOperation = .subtraction
-        if !data.setting.isActive {
-            data.setting.isActive = true
-            if data.numberFirst == nil {
-                data.numberFirst = Int(data.resultString) ?? 0
-            } else if data.numberSecond == nil {
-                data.numberSecond = Int(data.resultString) ?? 0
-                data.resultString = "\(data.numberFirst! - data.numberSecond!)"
-                data.numberSecond = Int(data.resultString)
-            } else {
-                data.resultString = "\(data.numberSecond! - Int(data.resultString)!)"
-                data.numberSecond = Int(data.resultString)
-            }
-        }
-    }
-    
-    private mutating func actionDivision() {
-        data.setting.currentOperation = .division
-        if !data.setting.isActive {
-            data.setting.isActive = true
-            if data.numberFirst == nil {
-                data.numberFirst = Int(data.resultString) ?? 0
-            } else if data.numberSecond == nil {
-                data.numberSecond = Int(data.resultString) ?? 0
-                data.resultString = "\(Double(data.numberFirst!) / Double(data.numberSecond!))"
-                data.numberSecond = Int(data.resultString)
-            } else {
-                data.resultString = "\(Double(data.numberSecond!) / Double(data.resultString)!)"
-                data.numberSecond = Int(data.resultString)
-            }
-        }
-    }
-    
-    private mutating func actionMultiplication() {
-        data.setting.currentOperation = .multiplication
-        if !data.setting.isActive {
-            data.setting.isActive = true
-            if data.numberFirst == nil {
-                data.numberFirst = Int(data.resultString) ?? 0
-            } else if data.numberSecond == nil {
-                data.numberSecond = Int(data.resultString) ?? 0
-                data.resultString = "\(data.numberFirst! * data.numberSecond!)"
-                data.numberSecond = Int(data.resultString)
-            } else {
-                data.resultString = "\(data.numberSecond! * Int(data.resultString)!)"
-                data.numberSecond = Int(data.resultString)
+                data.resultString = action(Double(data.numberSecond!), Double(data.resultString)!)
+                data.numberSecond = Double(data.resultString)
             }
         }
     }
@@ -134,9 +88,9 @@ struct CalculatorActions: CalculatableActions {
     private mutating func actionEquals() {
         func getResults(by action: (Double, Double) -> String) {
             if data.numberFirst == nil {
-                data.numberFirst = Int(data.resultString) ?? 0
+                data.numberFirst = Double(data.resultString) ?? 0.0
             } else if data.numberSecond == nil {
-                data.numberSecond = Int(data.resultString) ?? 0
+                data.numberSecond = Double(data.resultString) ?? 0.0
                 data.resultString = action(Double(data.numberFirst!), Double(data.numberSecond!))
             } else {
                 data.resultString =  action(Double(data.resultString)!, Double(data.numberSecond!))
@@ -158,6 +112,7 @@ struct CalculatorActions: CalculatableActions {
         data.setting.isActive = true
     }
     
+    // MARK: - Setting methods
     func getButtonWidth(_ type: ActionButton.Labels = .equals) -> CGFloat {
         switch type {
         case .zero:
