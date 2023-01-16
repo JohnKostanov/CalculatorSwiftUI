@@ -83,7 +83,6 @@ struct CalculatorActions: CalculatableActions {
         } else {
             data.resultString += number.rawValue
         }
-        
     }
     
     private mutating func action(with operation: ActionButton.Labels, by action: (Double, Double) -> String) {
@@ -97,8 +96,8 @@ struct CalculatorActions: CalculatableActions {
                 data.resultString =  action(Double(data.numberFirst!), Double(data.numberSecond!))
                 data.numberSecond = Double(data.resultString)
             } else {
-                data.resultString = action(Double(data.numberSecond!), Double(data.resultString)!)
-                data.numberSecond = Double(data.resultString)
+                data.numberFirst = Double(data.resultString)
+                data.numberSecond = nil
             }
         }
     }
@@ -126,7 +125,7 @@ struct CalculatorActions: CalculatableActions {
         default:
             break
         }
-        data.setting.isActive = true
+        data.setting.isActive = false
     }
     
     // MARK: - Setting methods
