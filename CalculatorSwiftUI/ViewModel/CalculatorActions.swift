@@ -17,7 +17,7 @@ struct CalculatorActions: CalculatableActions {
         case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
             actionNumber(button)
         case .ac:
-            break
+            actionAC()
         case .plusMinus:
             break
         case .percent:
@@ -35,7 +35,18 @@ struct CalculatorActions: CalculatableActions {
         }
     }
     
+    private mutating func actionAC() {
+        if data.setting.statusAC {
+            data.numberFirst = nil
+            data.numberSecond = nil
+        }
+        data.resultString = "0"
+        data.setting.statusAC = true
+    }
+    
     private mutating func actionNumber(_ number: ActionButton.Labels) {
+        data.setting.statusAC = false
+        
         guard !data.setting.isActive else {
             data.resultString = number.rawValue
             data.setting.isActive = false
@@ -172,5 +183,15 @@ struct CalculatorActions: CalculatableActions {
         }
     }
     
-    
+    func setLabels(_ button: ActionButton.Labels) -> String {
+        if button == ActionButton.Labels.ac {
+            if data.resultString == "0" || data.setting.statusAC {
+                return "AC"
+            } else {
+                return "C"
+            }
+        } else {
+            return button.rawValue
+        }
+    }
 }

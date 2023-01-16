@@ -23,6 +23,7 @@ struct ActionButton {
     var label: Labels
     var currentOperation: Labels?
     var isActive = false
+    var statusAC = false
 }
 
 extension Calculator {

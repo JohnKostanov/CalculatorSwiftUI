@@ -19,7 +19,7 @@ struct ButtonView: View {
                 Rectangle()
                     .foregroundColor(calculator.getButtonColor(label))
                     .cornerRadius(calculator.getButtonWidth())
-                Text(label.rawValue)
+                Text(calculator.setLabels(label))
                     .foregroundColor(.white)
                     .font(.system(size: 40))
             }
