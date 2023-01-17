@@ -13,7 +13,7 @@ struct CalculatorActions: CalculatableActions {
     mutating func calculateAction(button: ActionButton.Labels) {
         switch button {
         case .comma:
-            break
+            actionComma()
         case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
             actionNumber(button)
         case .ac:
@@ -77,11 +77,26 @@ struct CalculatorActions: CalculatableActions {
         }
         guard data.resultString.count <= 9 else { return }
         
-        
-        if data.resultString.first == "0" {
+        if data.resultString == ActionButton.Labels.zero.rawValue {
             data.resultString = number.rawValue
         } else {
             data.resultString += number.rawValue
+        }
+    }
+    
+    private mutating func actionComma() {
+        data.setting.statusAC = false
+        
+        guard !data.setting.isActive else {
+            data.resultString = ActionButton.Labels.zero.rawValue
+            data.resultString += ActionButton.Labels.comma.rawValue
+            data.setting.isActive = false
+            return
+        }
+        guard data.resultString.count <= 9 else { return }
+        
+        if !data.resultString.contains(ActionButton.Labels.comma.rawValue) {
+            data.resultString += ActionButton.Labels.comma.rawValue
         }
     }
     
@@ -90,6 +105,7 @@ struct CalculatorActions: CalculatableActions {
         if !data.setting.isActive {
             data.setting.isActive = true
             if data.numberFirst == nil {
+                
                 data.numberFirst = Double(data.resultString) ?? 0.0
             } else if data.numberSecond == nil {
                 data.numberSecond = Double(data.resultString) ?? 0.0
