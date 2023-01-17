@@ -94,7 +94,7 @@ struct CalculatorActions: CalculatableActions {
         }
         guard data.resultString.count <= 9 else { return }
         
-        if !data.resultString.contains(ActionButton.Labels.comma.rawValue) {
+        if !data.resultString.contains(ActionButton.Labels.comma.rawValue) && !data.resultString.contains(".") {
             data.resultString += ActionButton.Labels.comma.rawValue
         }
     }
