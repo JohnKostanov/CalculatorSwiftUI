@@ -24,6 +24,7 @@ struct ActionButton {
     var currentOperation: Labels?
     var isActive = false
     var statusAC = false
+    var isTyping = false
 }
 
 extension Calculator {
