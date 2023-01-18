@@ -22,6 +22,7 @@ struct ButtonView: View {
                 Text(calculator.setLabels(label))
                     .foregroundColor(calculator.getButtonColorForLabel(label))
                     .font(.system(size: 40))
+                    .position(CGPoint(x: 40, y: 40))
             }
         }
 
