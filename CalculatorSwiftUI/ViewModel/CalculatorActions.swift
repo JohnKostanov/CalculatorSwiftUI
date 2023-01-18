@@ -49,15 +49,18 @@ struct CalculatorActions: CalculatableActions {
         let percent = (prepareStringForAction(data.resultString) / 100)
         
         if data.numberFirst == nil {
-            data.resultString = "\(percent)"
+            let rawString = "\(percent)"
+            data.resultString = prepareStringForResultString(rawString)
         } else {
             let result = data.numberFirst! * percent
-            data.resultString = "\(result)"
+            let rawString = "\(result)"
+            data.resultString = prepareStringForResultString(rawString)
         } 
     }
     
     private mutating func actionPlusMinus() {
-        data.resultString = "\(prepareStringForAction(data.resultString) * -1)"
+        let rawString = "\(prepareStringForAction(data.resultString) * -1)"
+        data.resultString = prepareStringForResultString(rawString)
     }
     
     private mutating func actionNumber(_ number: ActionButton.Labels) {
@@ -105,11 +108,13 @@ struct CalculatorActions: CalculatableActions {
                 data.numberFirst = prepareStringForAction(data.resultString)
             } else if data.numberSecond == nil {
                 data.numberSecond = prepareStringForAction(data.resultString)
-                data.resultString =  action(data.numberFirst!, data.numberSecond!)
+                let rawString = action(data.numberFirst!, data.numberSecond!)
+                data.resultString = prepareStringForResultString(rawString)
                 data.numberSecond = prepareStringForAction(data.resultString)
             } else {
                 data.numberFirst =  prepareStringForAction(data.resultString)
-                data.resultString = action(data.numberSecond!, data.numberFirst!)
+                let rawString = action(data.numberSecond!, data.numberFirst!)
+                data.resultString = prepareStringForResultString(rawString)
                 data.numberFirst = prepareStringForAction(data.resultString)
                 data.numberSecond = nil
             }
@@ -123,9 +128,12 @@ struct CalculatorActions: CalculatableActions {
                 data.numberFirst = prepareStringForAction(data.resultString)
             } else if data.numberSecond == nil {
                 data.numberSecond = prepareStringForAction(data.resultString)
-                data.resultString = action(data.numberFirst!, data.numberSecond!)
+                let rawString = action(data.numberFirst!, data.numberSecond!)
+                data.resultString = prepareStringForResultString(rawString)
             } else {
-                data.resultString =  action(prepareStringForAction(data.resultString), data.numberSecond!)
+                let rawString = action(prepareStringForAction(data.resultString), data.numberSecond!)
+                data.resultString = prepareStringForResultString(rawString)
+                
             }
         }
         switch data.setting.currentOperation {
@@ -180,7 +188,7 @@ struct CalculatorActions: CalculatableActions {
             return button.rawValue
         }
     }
-    
+    // Changing "," to "."
     private func prepareStringForAction(_ string: String) -> Double {
         let formattedString = string.map { character in
             if character.description == ActionButton.Labels.comma.rawValue {
@@ -191,5 +199,12 @@ struct CalculatorActions: CalculatableActions {
         assert(Double(formattedString) != nil, "Ошибка преобразования строки в число типа Double в:\(#line), \(#function)")
         let doubleNumber = Double(formattedString) ?? 0.0
         return doubleNumber
+    }
+    // Changing "." to ","
+    private func prepareStringForResultString(_ string: String) -> String {
+        let formattedString = string.map {
+            $0.description == "." ? ActionButton.Labels.comma.rawValue : $0.description 
+        }.reduce("", +)
+        return formattedString
     }
 }
