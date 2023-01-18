@@ -40,6 +40,7 @@ struct CalculatorActions: CalculatableActions {
         if data.setting.statusAC {
             data.numberFirst = nil
             data.numberSecond = nil
+            data.setting.isActive = false
         }
         data.resultString = ActionButton.Labels.zero.rawValue
         data.setting.statusAC = true
@@ -148,7 +149,7 @@ struct CalculatorActions: CalculatableActions {
         default:
             break
         }
-        data.setting.isActive = true
+        data.setting.isActive = false
         data.setting.isTyping = false
     }
     
@@ -172,8 +173,21 @@ struct CalculatorActions: CalculatableActions {
             return Colors.darkGray
         case .ac, .plusMinus, .percent:
             return Colors.lightGray
-        case .division, .multiplication, .subtraction, .addition, .equals:
+        case .division, .multiplication, .subtraction, .addition:
+            return data.setting.isActive && type.rawValue == data.setting.currentOperation?.rawValue ? Colors.white : Colors.orange
+        case .equals:
             return Colors.orange
+        }
+    }
+    
+    func getButtonColorForLabel(_ type: ActionButton.Labels) -> Color {
+        switch type {            
+        case .comma, .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .equals:
+            return Colors.white
+        case .ac, .plusMinus, .percent:
+            return Colors.black
+        case .division, .multiplication, .subtraction, .addition:
+            return data.setting.isActive && type.rawValue == data.setting.currentOperation?.rawValue ? Colors.orange : Colors.white
         }
     }
     

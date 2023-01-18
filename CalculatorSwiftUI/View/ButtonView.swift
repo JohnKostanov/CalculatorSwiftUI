@@ -20,7 +20,7 @@ struct ButtonView: View {
                     .foregroundColor(calculator.getButtonColor(label))
                     .cornerRadius(calculator.getButtonWidth())
                 Text(calculator.setLabels(label))
-                    .foregroundColor(.white)
+                    .foregroundColor(calculator.getButtonColorForLabel(label))
                     .font(.system(size: 40))
             }
         }
