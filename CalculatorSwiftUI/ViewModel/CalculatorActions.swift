@@ -47,15 +47,13 @@ struct CalculatorActions: CalculatableActions {
     
     private mutating func actionPercent() {
         let percent = (prepareStringForAction(data.resultString) / 100)
+        
         if data.numberFirst == nil {
-            data.numberFirst = percent
             data.resultString = "\(percent)"
-        } else if data.numberSecond == nil {
-            data.resultString = "\(data.numberFirst! * percent)"
-            data.numberSecond = prepareStringForAction(data.resultString)
         } else {
-            data.resultString = "\(percent)"
-        }
+            let result = data.numberFirst! * percent
+            data.resultString = "\(result)"
+        } 
     }
     
     private mutating func actionPlusMinus() {
